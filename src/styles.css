@@ -1,1 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
+.content-wrapper{
+    margin-top: 50px;
+}
+
+.img_background {
+    background-image: url('./assets/img/fondoOasis.png');
+    background: #06BC5A;
+}
+
+.skin-blue .main-header .navbar {
+    background-color: #06BC5A;
+}

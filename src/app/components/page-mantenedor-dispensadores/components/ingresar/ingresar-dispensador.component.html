@@ -1,0 +1,173 @@
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{title}}
+      <small>{{modulo}}</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a style="cursor: pointer;" (click)="goToHome()" ><i class="fa fa-dashboard"></i> {{modulo}}</a></li>
+      <li class="active">{{title}}</li>
+    </ol>
+  </section>
+  <br>
+  <section class="content">
+    <form #formvalid="ngForm">
+      <!-- Dispensador -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Dispensador: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <input [(ngModel)]="_formBuscarDispensador.trm" #id_dispensador="ngModel" name="id_dispensador" class="form-control" required type="text" data-type="text"/>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span *ngIf="id_dispensador.touched && !id_dispensador.valid" class="errorspn"> Dispensador no puede ser vac&#xed;o </span>
+        </div>
+      </div>
+
+      <!-- IP address -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> IP Address: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <input [(ngModel)]="_formBuscarDispensador.ip_address" #ip_address="ngModel" name="ip_address" class="form-control" required type="text" data-type="text" required/>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span *ngIf="ip_address.touched && !ip_address.valid" class="errorspn"> IP Address no puede ser vac&#xed;o </span>
+        </div>
+      </div>
+
+      <!-- Tipo -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Tipo: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <select [(ngModel)]="_formBuscarDispensador.td" #tipo_dispensador="ngModel" name="tipo_dispensador" class="form-control" required>
+            <option *ngFor="let row of listar_tipos_dispensadores" value="{{row.cod}}">{{row.dsc}}</option>
+          </select>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span class="errorspn" *ngIf="tipo_dispensador.touched && !tipo_dispensador.valid"> Seleccione un tipo de envase </span>
+        </div>
+      </div>
+
+      <!-- Ubicacion -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Ubicaci&#xf3;n: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <select [(ngModel)]="_formBuscarDispensador.ub" #id_ubicacion="ngModel" name="id_ubicacion" required class="form-control">
+            <option *ngFor="let row of listar_ubicacion_dispensadores" value="{{row.cod}}">{{row.dsc}}</option>
+          </select>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span class="errorspn" *ngIf="id_ubicacion.touched && !id_ubicacion.valid"> Seleccione una ubicaci&#xf3;n del listado </span>
+        </div>
+      </div>
+
+      <!-- Estacion -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Estaci&#xf3;n: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <select [(ngModel)]="_formBuscarDispensador.ide" #id_estacion="ngModel" name="id_estacion" required class="form-control">
+            <option *ngFor="let row of listar_estaciones_dispensador" value="{{row.cod}}">{{row.dsc}}</option>
+          </select>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span *ngIf="id_estacion.touched && !id_estacion.valid" class="errorspn"> Seleccione una estaci&#xf3;n del listado </span>
+        </div>
+      </div>
+
+      <!-- Comuna -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Comuna: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <input [(ngModel)]="_formBuscarDispensador.cm" #comuna="ngModel" name="comuna" class="form-control" required type="text" data-type="text"/>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span class="errorspn" *ngIf="comuna.touched && !comuna.valid"> Comuna no puede ser vac&#xed;o </span>
+        </div>
+      </div>
+
+      <!-- Ciudad -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Ciudad: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <input [(ngModel)]="_formBuscarDispensador.ci" #ciudad="ngModel" name="ciudad" class="form-control" required type="text" data-type="text"/>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span class="errorspn" *ngIf="ciudad.touched && !ciudad.valid"> Ciudad no puede ser vac&#xed;o </span>
+        </div>
+      </div>
+
+      <!-- Pais -->
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Pa&#xed;s: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <input [(ngModel)]="_formBuscarDispensador.pa" #pais="ngModel" name="pais" class="form-control" required type="text" data-type="text"/>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span class="errorspn" *ngIf="pais.touched && !pais.valid"> Ciudad no puede ser vac&#xed;o </span>
+        </div>
+      </div>
+
+      <!-- Fecha habilitacion -->
+      <!--
+      <div class="row form-group">
+        <div class="col-md-2 col-xs-4 ">
+          <label class="pull-right"> Fecha habilitaci&#xf3;n: </label>
+        </div>
+        <div class="col-md-3 col-xs-8">
+          <input class="form-control" required type="text" data-type="text"/>
+        </div>
+        <div class="col-md-7 col-xs-12 errordiv">
+          <span class="errorspn"> Ingrese fecha habilitaci&#xf3;n completa  </span>
+        </div>
+      </div>
+      -->
+      <!-- Fecha mantencion -->
+      <!--
+        <div class="row form-group">
+          <div class="col-md-2 col-xs-4 ">
+            <label class="pull-right"> Fecha mantenci&#xf3;n: </label>
+          </div>
+          <div class="col-md-3 col-xs-8">
+            <input class="form-control" required type="text" data-type="text"/>
+          </div>
+          <div class="col-md-7 col-xs-12 errordiv">
+            <span class="errorspn"> Ingrese fecha mantenci&#xf3;n completa  </span>
+          </div>
+        </div>
+      -->
+      <!-- Estado -->
+      <!--
+        <div class="row form-group">
+          <div class="col-md-2 col-xs-4 ">
+            <label class="pull-right"> Estado: </label>
+          </div>
+          <div class="col-md-3 col-xs-8">
+            <input class="form-control" required type="text" data-type="text"/>
+          </div>
+          <div class="col-md-7 col-xs-12 errordiv">
+            <span class="errorspn"> Seleccione Estado </span>
+          </div>
+        </div>
+      -->
+    </form>
+  <button [disabled]="!formvalid.form.valid" (click)="guardarDispensador()" type="button" class="btn btn-oasis">Registrar</button>
+
+
+  </section>
+</div>

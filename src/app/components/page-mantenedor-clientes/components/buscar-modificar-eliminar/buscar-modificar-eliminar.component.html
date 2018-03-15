@@ -1,0 +1,123 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{title}}
+      <small>{{modulo}}</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a style="cursor: pointer;" (click)="goToHome()" ><i class="fa fa-dashboard"></i> {{modulo}}</a></li>
+      <li class="active">{{title}}</li>
+    </ol>
+  </section>
+  <br>
+  <section class="content">
+    <!-- buscar -->
+    <div class="row form-group container">
+      <div class="col-md-2 col-xs-12 labeldiv">
+        <label > Rut/Pasaporte: </label>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <input class="form-control" type="text" data-type="text" [(ngModel)]="_formBuscarEnvaseCliente.di" name="rutBM"/>
+      </div>
+      <div class="col-md-7 col-xs-12 buscardiv">
+        <button type="button" (click)="buscarDatosCliente()" class="btn btn-oasis"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+      </div>
+    </div>
+    <!-- end buscar -->
+
+    <!-- resutado busqueda -->
+    <div *ngIf = "showButtons">
+      <div class="table-responsive">
+        <form #formvalid="ngForm">
+          <table class="table">
+            <tbody>
+            <tr>
+              <td>Nombres</td>
+              <td>
+                <input required #nombre="ngModel" class="form-control" [(ngModel)]="_formBuscarCliente.nombre" [disabled] = "!editInputs" type="text" data-type="text" name="nombres"/>
+                <span *ngIf="editInputs && !nombre.valid" class="errorspn"> Nombre no puede ser vac&#xcd;o</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Apellidos</td>
+              <td>
+                <input required #apellido="ngModel" class="form-control" [(ngModel)]="_formBuscarCliente.apellido" [disabled] = "!editInputs" type="text" data-type="text" name="apellidos"/>
+                <span *ngIf="editInputs && !apellido.valid" class="errorspn"> Apellido no puede ser vac&#xcd;o</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Email</td>
+              <td>
+                <input required #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" class="form-control" [(ngModel)]="_formBuscarCliente.email" [disabled] = "!editInputs" type="email" data-type="text" name="correo"/>
+                <span *ngIf="editInputs && !email.valid" class="errorspn"> Email no cumple el formato requerido</span>
+              </td>
+            </tr>
+            <tr *ngIf="!editInputs">
+              <td>Estado</td>
+              <td>
+                <input  disabled required #estado="ngModel" class="form-control" [(ngModel)]="_formBuscarCliente.ge" type="text" data-type="text" name="estado"/>
+              </td>
+            </tr>
+            <tr *ngIf="editInputs">
+              <td>Estado</td>
+              <td>
+                <select class="form-control" [(ngModel)]="_formBuscarCliente.estado" #estado="ngModel" name="estado">
+                  <option *ngFor="let row of arr_estados_cliente" value="{{row.id}}">{{row.glosa}}</option>
+                </select>
+              </td>
+            </tr>
+            <tr>
+              <td>Consumo total cc</td>
+              <td><input class="form-control" type="text" data-type="text" name="consumo" disabled/></td>
+            </tr>
+            </tbody>
+          </table>
+        </form>
+        <button *ngIf="editbutton" type="button" (click)="modificarCliente()" class="btn btn-oasis"><i class="glyphicon glyphicon-pencil"></i> Modificar datos</button>
+        <button *ngIf="savebutton" type="button" [disabled]="!formvalid.form.valid" (click)="guardarCambiosCliente()" class="btn btn-oasis"><i class="glyphicon glyphicon-save"></i> Guardar datos</button>
+        <button type="button" data-toggle="modal" data-target="#confirmModal" class="btn btn-oasis"><i class="glyphicon glyphicon-ban-circle"></i> Desactivar cliente</button>
+      </div>
+      <div class="table-responsive">
+        <table class="table">
+        </table>
+      </div>
+      <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+          <th>ID Envase</th>
+          <th>Fecha vencimiento</th>
+          <th>Consumo cc</th>
+          <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of listaEnvases">
+          <td>{{row.env}}</td>
+          <td>{{row.fv==null?'sin registro':row.fv}}</td>
+          <td>{{row.ca}}</td>
+          <td>{{row.ges.toUpperCase()}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- end resultado busqueda -->
+
+  </section>
+</div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">¿Seguro quiere Desactivar este Cliente?</h5>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button data-dismiss="modal" (click)="eliminarCliente()" type="button" class="btn btn-oasis"> Desactivar Registro</button>
+        </div>
+      </div>
+    </div>
+  </div>

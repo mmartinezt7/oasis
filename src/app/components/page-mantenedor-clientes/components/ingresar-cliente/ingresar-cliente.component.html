@@ -1,0 +1,130 @@
+<div class="content-wrapper">
+<section class="content-header">
+  <h1>
+    Registrar nuevo cliente
+    <small>Mantenedor Cliente</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a style="cursor: pointer;" (click)="goToHome()" ><i class="fa fa-dashboard"></i> {{modulo}}</a></li>
+    <li class="active">Registrar nuevo cliente</li>
+  </ol>
+</section>
+
+  <section class="content">
+    <form #formvalid="ngForm">
+  <br>
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4 ">
+      <label for="email" class="pull-right"> Rut/Pasaporte: </label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required #rut="ngModel" type="text" data-type="text" id="email" name="rut" [(ngModel)]="_formCliente.di"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="rut.touched && !rut.valid"> Documento de identificaci&#xf3;n no puede ser vac&#xed;o </span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right"> Email: </label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" name="correo" type="email" #correo="ngModel" [(ngModel)]="_formCliente.em"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="correo.touched && !correo.valid"> Email no cumple formato requerido</span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right"> Nombres: </label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required type="text" data-type="text" #nombres="ngModel" name="nombres" [(ngModel)]="_formCliente.nm"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="nombres.touched && !nombres.valid"> Nombre no puede ser vac&#xed;o </span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right"> Apellidos: </label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required type="text" data-type="text" #apellidos="ngModel" name="apellidos" [(ngModel)]="_formCliente.ap"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="apellidos.touched && !apellidos.valid"> Apellidos no puede ser vac&#xed;o </span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right"> ID Envase: </label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required type="text" #id_envase="ngModel" [(ngModel)]="_formCliente.id_envase" data-type="text" name="idEnvase"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="id_envase.touched && !id_envase.valid"> Identificador de Envase no puede ser vac&#xed;o </span>
+    </div>
+  </div>
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right"> Contrase&#xf1;a: </label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required type="password" #pass="ngModel" data-type="password" name="contrasena" [(ngModel)]="_formCliente.pw"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="pass.touched && !pass.valid"> Contrase&#xf1;a no puede ser vac&#xed;o </span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right">Validar Contrase&#xf1;a:</label>
+    </div>
+    <div class="col-md-3 col-xs-8">
+      <input class="form-control" required #rpass="ngModel" type="password" data-type="password" name="contrasena2" [(ngModel)]="_formCliente.rpw"/>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="rpass.touched && (pass.value !== rpass.value)"> Contraseñas no coinciden</span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+
+    </div>
+    <div class="col-md-3 col-xs-8">
+                  <span required data-type="radio" data-name="gender_wrapper">
+                      <span><input type="radio" name="sexo" value="1" [(ngModel)]="_formCliente.sx"/><label>Mujer</label></span>
+                      <span><input type="radio" name="sexo" value="2" [(ngModel)]="_formCliente.sx"/><label>Hombre</label></span>
+                  </span>
+    </div>
+    <div class="col-md-7 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="false"> </span>
+    </div>
+  </div>
+
+  <div class="row form-group">
+    <div class="col-md-2 col-xs-4">
+      <label class="pull-right">Fecha Nacimiento:</label>
+    </div>
+    <div class="col-md-5 col-xs-8 form-inline">
+      <input class="form-control" required #d="ngModel" type="number" data-type="number" name="dia" [(ngModel)]="_formCliente.dia" min="1" max="31" placeholder="dia"/>
+      <input class="form-control" required #m="ngModel" type="number" data-type="number" name="mes" [(ngModel)]="_formCliente.mes" min="1" max="12" placeholder="mes"/>
+      <input class="form-control" required #a="ngModel" type="number" data-type="number" name="ano" [(ngModel)]="_formCliente.anio" min="1905" placeholder="a&#xf1;o"/>
+    </div>
+    <div class="col-md-5 col-xs-12 errordiv">
+      <span class="errorspn" *ngIf="(d.touched && !d.valid) || (m.touched && !m.valid) || (a.touched && !a.valid)"> Ingrese fecha de nacimiento completa </span>
+    </div>
+  </div>
+</form>
+    <button type="button" [disabled]="!formvalid.form.valid" (click)="crearCliente()" class="btn btn-oasis">Registrar</button>
+  </section>
+</div>

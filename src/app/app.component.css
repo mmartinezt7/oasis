@@ -1,0 +1,13 @@
+.main-header {
+    position: relative;
+    max-height: 100px;
+    z-index: 1030;
+}
+
+.container{
+    min-height: 100%;
+}
+.oasis{
+    background-color: #6E2942;
+}
+

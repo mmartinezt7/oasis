@@ -1,0 +1,70 @@
+<div class="container">
+  <h1>
+    Recupera tu clave OASIS!
+  </h1>
+  <form #formvalid="ngForm">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <input required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" #correo="ngModel" name="email" type="text" class="form-control" placeholder="email" [(ngModel)]="_formRecuperar.ema"/>
+    </div>
+    <span style="color: red" *ngIf="correo.touched && !correo.valid">Debe indicar un email v&#xe1;lido</span>
+    <h1></h1>
+    <div class="form-group"><input required #rut="ngModel" type="text" class="form-control" name="rut" placeholder="Rut/Pasaporte (ej. 11000111-1)" [(ngModel)]="_formRecuperar.rut"/>
+      <span style="color: red" *ngIf="rut.touched && !rut.valid">Debe indicar su Rut o Pasaporte</span>
+    </div>
+    <div class="form-group">
+      <label>Fecha de nacimiento</label>
+      <form class="form-inline">
+        <select class="form-control" required #dia="ngModel" name="dia" [(ngModel)]="_formRecuperar.dia"><option value="" selected disabled>dia</option>
+          <option>01</option>
+          <option>02</option>
+          <option>03</option>
+          <option>04</option>
+          <option>05</option>
+          <option>06</option>
+          <option>07</option>
+          <option>08</option>
+          <option>09</option>
+          <option>10</option>
+          <option>11</option>
+          <option>12</option>
+          <option>13</option>
+          <option>14</option>
+          <option>15</option>
+          <option>16</option>
+          <option>17</option>
+          <option>18</option>
+          <option>19</option>
+          <option>20</option>
+          <option>21</option>
+          <option>22</option>
+          <option>23</option>
+          <option>24</option>
+          <option>25</option>
+          <option>26</option>
+          <option>27</option>
+          <option>28</option>
+          <option>29</option>
+          <option>30</option>
+          <option>31</option>
+        </select>
+        <select class="form-control" required #mes="ngModel" name="mes" [(ngModel)]="_formRecuperar.mes"><option value="" selected disabled>mes</option>
+          <option value="01">enero</option>
+          <option value="02">febrero</option>
+          <option value="03">marzo</option>
+          <option value="04">abril</option>
+          <option value="05">mayo</option>
+          <option value="06">junio</option>
+          <option value="07">julio</option>
+          <option value="08">agosto</option>
+          <option value="09">septiembre</option>
+          <option value="10">octubre</option>
+          <option value="11">noviembre</option>
+          <option value="12">diciembre</option></select>
+        <input type="number" class="form-control" required #anio="ngModel" name="anio" placeholder="a&#xf1;o" min="1905" [(ngModel)]="_formRecuperar.anio"/>
+        <span style="color: red" *ngIf="(dia.touched && !dia.valid) || (mes.touched && !mes.valid) || (anio.touched && !anio.valid)">Debe ingresar fecha de nacimiento completa</span>
+      </form>
+    </div>
+    <button type="submit" [disabled]="!formvalid.form.valid" (click)="recuperarClave()" class="btn btn-oasis">Recuperar</button>
+  </form>
+</div>

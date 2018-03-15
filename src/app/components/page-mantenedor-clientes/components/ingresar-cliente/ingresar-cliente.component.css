@@ -1,0 +1,48 @@
+
+@media only screen and (max-width: 500px) {
+    .errorspn {
+        color: red;
+    }
+    .labeldiv {
+        text-align: left;
+    }
+    .errordiv {
+        padding-left: 38%;
+    }
+    .buscardiv {
+        padding-left: 38%;
+        top: 5px;
+    }
+}
+@media(max-width:990px) and (min-width: 500px){
+    .errorspn {
+        color: red;
+    }
+    .errordiv {
+        padding-left: 38%;
+    }
+    .labeldiv {
+        text-align: right;
+    }
+}
+@media only screen and (max-width: 1500px) and (min-width: 991px) {
+    .errorspn {
+        color: red;
+    }
+    .errordiv {
+        text-align: left;
+    }
+    .labeldiv {
+        text-align: right;
+    }
+}
+
+.container{
+    min-height: 100%;
+}
+
+.btn-oasis{
+    background-color: #6E2942;
+    border-color: #6E2950;
+    color: white;
+}

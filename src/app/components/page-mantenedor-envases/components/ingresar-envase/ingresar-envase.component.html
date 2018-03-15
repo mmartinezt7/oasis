@@ -1,0 +1,25 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{title}}
+      <small>{{modulo}}</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a style="cursor: pointer;" (click)="goToHome()" ><i class="fa fa-dashboard"></i> {{modulo}}</a></li>
+      <li class="active">{{title}}</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="table-responsive">
+      <table class="table">
+      </table>
+    </div>
+    <div class="form-group"><input type="file" accept=".txt" class="form-control-file" id="archivoEnvases" (change)="fileUpload($event)"/>
+    </div>
+    <div class="form-group"><select required #idDispensador="ngModel"  class="form-control" name="idDispensador" [(ngModel)]="_idDispensador">
+      <option value="" selected disabled>ID Dispensador</option>
+      <option *ngFor="let row of listaDispensadores" value={{row.trm}}>{{row.trm + ' ' + row.gtd + ' ' + row.gle + ' ' + row.glu + ' ' + row.cm}}</option></select>
+    </div>
+    <div class="form-group"><button type="button" (click)="cargarEnvases()" class="btn btn-primary">Cargar</button></div>
+  </section>
+</div>

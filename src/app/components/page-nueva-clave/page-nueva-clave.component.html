@@ -1,0 +1,20 @@
+<div class="container">
+  <h1>
+    Crea tu nueva clave OASIS!
+  </h1>
+  <form #formvalid="ngForm">
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <input required #clave="ngModel" name="clave" type="password" class="form-control" placeholder="Nueva contrase&#xf1;a" [(ngModel)]="_formLogin.pwd"/>
+    </div>
+    <span style="color: red" *ngIf="clave.touched && !clave.valid">Debe indicar una contrase&#xf1;a</span>
+    <h1></h1>
+    <div class="input-group">
+      <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <input required #confirmaClave="ngModel" name="confirmaClave" type="password" class="form-control" placeholder="Confirme contrase&#xf1;a" [(ngModel)]="_formLogin.pwd2"/>
+    </div>
+    <span style="color: red" *ngIf="confirmaClave.touched && (clave.value !== confirmaClave.value)">Contrase&#xf1;as no coinciden</span>
+    <h1></h1>
+  </form>
+  <button type="submit" [disabled]="!formvalid.form.valid" (click)="cambiarClave()" class="btn btn-oasis">Crear</button>
+</div>

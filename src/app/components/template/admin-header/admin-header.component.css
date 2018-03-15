@@ -1,0 +1,19 @@
+
+
+.main-header{
+    width: 100%;
+    position: fixed;
+    margin-top: -50px;
+    background: #6E2942;
+
+}
+
+.navbar{
+
+}
+
+.btn-oasis{
+    background-color: #6E2942;
+    border-color: #6E2950;
+    color: #eee;
+}

@@ -1,0 +1,131 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{title}}
+      <small>{{modulo}}</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a style="cursor: pointer;" (click)="goToHome()" ><i class="fa fa-dashboard"></i> {{modulo}}</a></li>
+      <li class="active">{{title}}</li>
+    </ol>
+  </section>
+  <section class="content">
+    <div class="row form-group container">
+      <div class="col-md-2 col-xs-12 labeldiv">
+        <label>ID Envase</label>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <input class="form-control" type="text" data-type="text" name="idEnvase" [(ngModel)]="_formBuscarEnvase.env"/>
+      </div>
+      <div class="col-md-7 col-xs-12 buscardiv">
+        <button type="button" (click)="buscarEnvase()" class="btn btn-oasis"><i class="glyphicon glyphicon-search"></i>Buscar</button>
+      </div>
+    </div>
+
+    <div *ngIf = "showButtons">
+      <div class="table-responsive">
+        <form #formvalid="ngForm">
+          <table class="table">
+            <tbody>
+            <tr>
+              <td>Fecha habilitaci&#xf3;n</td>
+              <td>
+                <input pattern="((\d{2})+[-]+(\d{2})+[-]+(\d{4}))" required #fechaHabilita="ngModel" name="fechaHabilita" [disabled] = "!editInputs" class="form-control" type="text" data-type="text" [(ngModel)]="_formEnvase.fechaHab"/>
+                <span style="color: red;" *ngIf="fechaHabilita.touched && !fechaHabilita.valid"> No cumple formato: dd-mm-aaaa</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Fecha vigencia</td>
+              <td>
+                <input pattern="((\d{2})+[-]+(\d{2})+[-]+(\d{4}))" required #fechaVigencia="ngModel" name="fechaVigencia" [disabled] = "!editInputs" class="form-control" type="text" data-type="text" [(ngModel)]="_formEnvase.fechaVig"/>
+                <span style="color: red;" *ngIf="fechaVigencia.touched && !fechaVigencia.valid"> No cumple formato: dd-mm-aaaa</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Estado</td>
+              <td><select required #estado="ngModel" name="estado" [disabled] = "!editInputs" class="form-control" [(ngModel)]="_formEnvase.estado">
+                <option value="0">Disponible</option>
+                <option value="1">Habilitado</option>
+                <option value="2">Bloqueado</option>
+                <option value="3">Caducado</option>
+                <option value="4">Eliminado</option>
+              </select></td>
+            </tr>
+            <tr>
+              <td>Rut/Pasaporte cliente</td>
+              <td><input required #rut="ngModel" name="rut" [disabled] = "!editInputs" class="form-control" type="text" data-type="text" [(ngModel)]="_formEnvase.rut"/></td>
+            </tr>
+            <tr>
+              <td>Consumo total (cc)</td>
+              <td>
+                <input pattern="(\d*)" required #consumoTotal="ngModel" name="consumoTotal" [disabled] = "!editInputs" class="form-control" type="text" data-type="text" [(ngModel)]="_formEnvase.consumoTotal"/>
+                <span style="color: red;" *ngIf="consumoTotal.touched && !consumoTotal.valid">Ingrese solo números</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </form>
+        <button *ngIf="editbutton" type="button" (click)="modificarEnvase()" class="btn btn-oasis"><i class="glyphicon glyphicon-pencil"></i>Modificar datos</button>
+        <button *ngIf="savebutton" type="button" [disabled]="!formvalid.form.valid" (click)="guardarCambiosEnvase()" class="btn btn-oasis"><i class="glyphicon glyphicon-save"></i>Guardar datos</button>
+        <button *ngIf="deletebutton" type="button" data-toggle="modal" data-target="#confirmModal" class="btn btn-oasis"><i class="glyphicon glyphicon-trash"></i>Eliminar envase</button>
+      </div>
+      <h4>Recargas</h4>
+      <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+          <th>ID Dispensador</th>
+          <th>Canal recarga</th>
+          <th>Fecha recarga</th>
+          <th>Monto recarga $</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of listaRecargaEnvases">
+          <td>{{row.trm}}</td>
+          <td>{{row.can.toUpperCase()}}</td>
+          <td>{{row.fr}}</td>
+          <td>{{row.amt}}</td>
+        </tr>
+        </tbody>
+      </table>
+
+      <div class="table-responsive">
+        <table class="table">
+        </table>
+      </div>
+      <h4>Consumo</h4>
+      <table class="table table-condensed table-striped">
+        <thead>
+        <tr>
+          <th>ID Dispensador</th>
+          <th>Fecha consumo</th>
+          <th>Consumo cc</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let row of listaConsumoEnvases">
+          <td>{{row.trm}}</td>
+          <td>{{row.fc}}</td>
+          <td>{{row.ccn}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">¿Seguro quiere eliminar este envase?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button data-dismiss="modal" (click)="eliminarEnvase()" type="button" class="btn btn-oasis">Eliminar envase</button>
+      </div>
+    </div>
+  </div>
+</div>

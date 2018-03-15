@@ -1,0 +1,40 @@
+
+<div class="img_backgraoud">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="div_logo"><img src="./assets/img/oasisLogo.png" width="100"/></div>
+    <a><b>Bienvenido a OASIS!</b></a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+      <p class="login-box-msg">Ingresa tus datos para inciar sesi&#xf3;n</p>
+      <form method="post">
+        <div class="form-group has-feedback">
+          <input type="email" class="form-control" id="email" placeholder="email" [(ngModel)]="_formLogin.email"
+                 [ngModelOptions]="{standalone: true}" required>
+          <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input type="password" class="form-control" id="password" placeholder="Contrase&#xf1;a"
+                 [(ngModel)]="_formLogin.pwd" [ngModelOptions]="{standalone: true}" required>
+          <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+        <div class="row">
+          <div class="col-xs-8">
+
+          </div>
+          <!-- /.col -->
+          <div class="col-xs-4">
+            <button type="submit" (click)="loginCustomerService()" class="btn btn-oasis">Ingresar</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      </form>
+      <a routerLink="/recovery">
+        <button type="button" class="btn btn-link">Olvid&#xe9; mi contrase&#xf1;a</button>
+      </a>
+    </div>
+    <!-- /.login-box-body -->
+  </div>
+  <!-- /.login-box -->
+</div>

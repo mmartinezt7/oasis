@@ -1,0 +1,154 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{title}}
+      <small>{{modulo}}</small>
+    </h1>
+    <ol class="breadcrumb">
+      <li><a style="cursor: pointer;" (click)="goToHome()" ><i class="fa fa-dashboard"></i> {{modulo}}</a></li>
+      <li class="active">{{title}}</li>
+    </ol>
+  </section>
+
+  <section class="content">
+  <br>
+    <!-- buscar -->
+    <div class="row form-group container">
+      <div class="col-md-2 col-xs-12 labeldiv">
+        <label > Dispensador:</label>
+      </div>
+      <div class="col-md-3 col-xs-12">
+        <input [(ngModel)]="_formBuscarDispensador.trm" class="form-control" type="text" data-type="text"/>
+      </div>
+      <div class="col-md-7 col-xs-12 buscardiv">
+        <button type="button" (click)="buscarDatosDispensador()" class="btn btn-oasis"><i class="glyphicon glyphicon-search"></i> Buscar</button>
+      </div>
+    </div>
+    <!-- end buscar -->
+
+    <div *ngIf="showresult" class="table-responsive">
+    <form #formvalid="ngForm">
+    <table class="table">
+      <tbody>
+      <tr>
+        <td>IP Address</td>
+        <td>
+          <input name="ip" required [disabled]="!update" #ip="ngModel" [(ngModel)]="_formBuscarDispensador.ip_address" class="form-control" type="text" data-type="text"/>
+          <span *ngIf="ip.touched && !ip.valid" class="errorspn"> Dirección IP no puede ser vac&#xcd;o</span>
+        </td>
+      </tr>
+
+      <!-- Tipo dispensador-->
+        <tr *ngIf="!update">
+          <td>Tipo</td>
+          <td>
+            <input [(ngModel)]="_formBuscarDispensador.gtd" class="form-control" type="text" data-type="text" name="tipo" disabled/>
+          </td>
+        </tr>
+        <tr *ngIf="update">
+          <td>Tipo</td>
+          <td>
+            <select class="form-control" name="tipo" [(ngModel)]="_formBuscarDispensador.td">
+              <option *ngFor="let row of listar_tipos_dispensadores" [disabled]="!update" value="{{row.cod}}">{{row.dsc}}</option>
+            </select>
+          </td>
+        </tr>
+      <!-- Fin tipo dispensador -->
+
+      <!-- Ubicacion dispensador -->
+        <tr *ngIf="!update">
+          <td>Ubicaci&#xf3;n</td>
+          <td><input [(ngModel)]="_formBuscarDispensador.glu" [disabled]="!update" class="form-control" type="text" data-type="text" name="ubicacion"/></td>
+        </tr>
+        <tr *ngIf="update">
+          <td>Ubicaci&#xf3;n</td>
+          <td>
+            <select class="form-control" name="ub" [(ngModel)]="_formBuscarDispensador.ub">
+              <option *ngFor="let row of listar_ubicacion_dispensadores" value="{{row.cod}}">{{row.dsc}}</option>
+            </select>
+          </td>
+        </tr>
+      <!-- Ubicacion dispensador -->
+
+      <!-- Estacion dispensador -->
+        <tr *ngIf="!update">
+          <td>Estaci&#xf3;n</td>
+          <td><input [(ngModel)]="_formBuscarDispensador.gle" [disabled]="!update" class="form-control" type="text" data-type="text" name="estacion"/></td>
+        </tr>
+        <tr *ngIf="update">
+          <td>Estaci&#xf3;n</td>
+          <td>
+            <select class="form-control" name="ide" [(ngModel)]="_formBuscarDispensador.ide">
+              <option *ngFor="let row of listar_estaciones_dispensador" value="{{row.cod}}">{{row.dsc}}</option>
+            </select>
+          </td>
+        </tr>
+      <!-- Fin estacion dispensador -->
+
+      <tr>
+        <td>Comuna</td>
+        <td>
+          <input name="comuna" #comuna="ngModel" required [(ngModel)]="_formBuscarDispensador.cm" [disabled]="!update" class="form-control" type="text" data-type="text" />
+          <span class="errorspn" *ngIf="comuna.touched && !comuna.valid"> Comuna no puede ser vac&#xcd;o</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Ciudad</td>
+        <td>
+          <input name="ciudad" #ciudad="ngModel" required [(ngModel)]="_formBuscarDispensador.ci" [disabled]="!update" class="form-control" type="text" data-type="text" />
+          <span class="errorspn" *ngIf="ciudad.touched && !ciudad.valid"> Ciudad no puede ser vac&#xcd;o</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Pa&#xed;s</td>
+        <td>
+          <input name="pais" #pais="ngModel" required [(ngModel)]="_formBuscarDispensador.pa" [disabled]="!update" class="form-control" type="text" data-type="text" />
+          <span class="errorspn" *ngIf="pais.touched && !pais.valid"> Pais no puede ser vac&#xcd;o</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Fecha habilitaci&#xf3;n</td>
+        <td>
+          <input pattern="((0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-[12]\d{3})" name="fhab" #fhab="ngModel" required [(ngModel)]="_formBuscarDispensador.fh" [disabled]="!update" class="form-control" type="text" data-type="text"/>
+          <span *ngIf="fhab.touched && !fhab.valid" class="errorspn">No comple formato: dd-mm-aaaa</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Fecha mantenci&#xf3;n</td>
+        <td>
+          <input pattern="((0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-[12]\d{3})" required #fman="ngModel" [(ngModel)]="_formBuscarDispensador.fm" [disabled]="!update" class="form-control" type="text" data-type="text" name="fechaMantencion"/>
+          <span *ngIf="fman.touched && !fman.valid" class="errorspn">No comple formato: dd-mm-aaaa</span>
+        </td>
+      </tr>
+      <tr>
+        <td>Consumo</td>
+        <td>
+          <input pattern="^\d+[c]{2}$" required #consumo="ngModel" [(ngModel)]="_formBuscarDispensador.cnd" [disabled]="!update" class="form-control" type="text" data-type="text" name="consumo"/>
+          <span *ngIf="consumo.touched && !consumo.valid" class="errorspn"> No cumple formato: 123cc</span>
+        </td>
+      </tr>
+      <tr *ngIf="!update">
+        <td>Estado</td>
+        <td >
+          <input [(ngModel)]="_formBuscarDispensador.ges" [disabled]="!update" class="form-control" type="text" data-type="text" name="estado"/>
+
+        </td>
+      </tr>
+      <tr *ngIf="update">
+        <td>Estado</td>
+        <td>
+          <select class="form-control" name="est" [(ngModel)]="_formBuscarDispensador.est">
+            <option *ngFor="let row of listar_estado_dispensador" value="{{row.cod}}">{{row.dsc}}</option>
+          </select>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    </form>
+    <button *ngIf="!update" type="button" (click)="buttonUpdate()" class="btn btn-oasis"><i class="glyphicon glyphicon-pencil"></i> Modificar datos</button>
+    <button [disabled]="!formvalid.form.valid" *ngIf="update" type="button" (click)="buttonSave()" class="btn btn-oasis"><i class="glyphicon glyphicon-save"></i> Guardar datos</button>
+
+    <button (click)="buttonDelete()" type="button" class="btn btn-oasis"><i class="glyphicon glyphicon-ban-circle"></i> Desactivar dispensador</button>
+  </div>
+  </section>
+</div>
